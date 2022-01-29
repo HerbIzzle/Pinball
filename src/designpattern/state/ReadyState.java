@@ -1,28 +1,34 @@
 package designpattern.state;
-import designpattern.singelton.Pinball;
 
-import com.start.PinballMachine;
+import com.application.start.PinballMachine;
 
 public class ReadyState implements State {
 
     PinballMachine pinballMachine;
 
-    public ReadyState(PinballMachine pinballMachine){
+    public ReadyState(PinballMachine pinballMachine) {
         this.pinballMachine = pinballMachine;
     }
 
-    public void insertCoin(){
+    public void insertCoin() {
         pinballMachine.addCredit();
 
     }
-    public void pullLauncher(){
-       // pinballMachine.setState(pinballMachine.getEndState());
-        pinballMachine.pinball.ballMovement();
-        pinballMachine.removeCredit();
-        pinballMachine.setState(pinballMachine.getPlayingState());
 
+    public void setToReady() {
 
-        //System.out.println("you pull launcher now");
+        if (pinballMachine.getTurnsTotal() > 0) {
+            pinballMachine.setState(pinballMachine.getEndState());
+
+            pinballMachine.startTheGame();
+            pinballMachine.removeTurn();
+        }else{
+            pinballMachine.setState(pinballMachine.getEndState());
+        }
+    }
+
+    public void PlayButtonPressed() {
+
     }
 
 }

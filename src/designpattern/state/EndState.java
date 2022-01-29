@@ -1,12 +1,9 @@
 
-
-
 package designpattern.state;
-import designpattern.singelton.Pinball;
 
-import com.start.PinballMachine;
+import com.application.start.PinballMachine;
 
-public class EndState implements State{
+public class EndState implements State {
 
     PinballMachine pinballMachine;
 
@@ -14,6 +11,28 @@ public class EndState implements State{
         this.pinballMachine = pinballMachine;
     }
 
-    public void insertCoin(){}
-    public void pullLauncher(){}
+    public void insertCoin() {
+        pinballMachine.addCredit();
+    }
+
+
+    public void setToReady() {  if (pinballMachine.getTurnsTotal() > 0){
+        pinballMachine.setState(pinballMachine.getReadyState());
+        pinballMachine.startTheGame();
+    }
+    }
+
+    public void PlayButtonPressed() {
+
+        if (pinballMachine.getTurnsTotal() > 0){
+            pinballMachine.setState(pinballMachine.getReadyState());
+        }
+        else{
+            System.out.println("""
+                ###########################################
+                Game has Ended --- Enter Coin for new Game
+                ###########################################""");
+    }
+
+    }
 }
